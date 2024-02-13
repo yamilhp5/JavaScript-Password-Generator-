@@ -6,18 +6,25 @@ function generatePassword(uppercaseABC, lowercaseABC, specialSymbols, numeric) {
   var uppercase = confirm ("Do you want to include Uppercase letters?")
   var lowercase = confirm ("Do you want to include Lowercase letters?")
   var symbols = confirm ("Do you want to include symbols and/or special characters?")
+  var numbers = confirm ("Do you want to include numbers?")
   
   
   var uppercaseABC = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
   var lowercaseABC = "abcdefghijklmnopqrstuvwxyz"
   var specialSymbols = "~!@#$%^&*()_+"
   var numeric = "0123456789"
-  var passsword = []; 
+  var password = []; 
 
- if (uppercaseABC) {passsword += lowercase};
- if (uppercaseABC) {password += uppercase};
- if (numeric) {passsword += numeric}
- if (specialSymbols) (passsword += symbols);
+ console.log (password, "password")
+
+ if (lowercase) {password += lowercaseABC};
+ console.log (password, "password")
+ if (uppercase) {password += uppercaseABC};
+ console.log (password, "password")
+ if (numbers) {passsword += numeric}
+ console.log (password, "password")
+ if (symbols) (password += specialSymbols);
+ console.log (password, "password")
 
  if (keylength < 8 || keylength > 128) {
   alert("Password must contain at least 8 characters");
@@ -29,8 +36,8 @@ function generatePassword(uppercaseABC, lowercaseABC, specialSymbols, numeric) {
   
  };
 
-  for (let i = 0; i < passsword; index++) {
-    let rng = [Math.floor(Math.random() * passsword.length )]
+  for (let i = 0; i < password; index++) {
+    let rng = [Math.floor(Math.random() * password.length )]
     
   }
 
