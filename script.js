@@ -1,51 +1,105 @@
 // Assignment Code
-var generateBtn = document.querySelector("#generate");
+  var upperCaseABC = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
+  var lowerCaseABC = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+  var specialSymbols = ['~', '!','@','#', '$', '%','^','&','*','(',')','_','+'];
+  var numericCharacters = ['0', '1', '2', '3', '4', '5', '6', '7','8','9','10'];
+ 
 
-function generatePassword(uppercaseABC, lowercaseABC, specialSymbols, numeric) {
-  var keylength = prompt ("Password must be between 8 and 128 characters! Click OK to continue")
-  var uppercase = confirm ("Do you want to include Uppercase letters?")
-  var lowercase = confirm ("Do you want to include Lowercase letters?")
-  var symbols = confirm ("Do you want to include symbols and/or special characters?")
-  var numbers = confirm ("Do you want to include numbers?")
-  
-  
-  var uppercaseABC = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-  var lowercaseABC = "abcdefghijklmnopqrstuvwxyz"
-  var specialSymbols = "~!@#$%^&*()_+"
-  var numeric = "0123456789"
-  var password = []; 
+function getPassswordOptions () {
+  var length = parseInt(
+    prompt("Password must be between 8 and 128 characters! Click OK to continue"),
+    10);
 
- console.log (password, "password")
-
- if (lowercase) {password += lowercaseABC};
- console.log (password, "password")
- if (uppercase) {password += uppercaseABC};
- console.log (password, "password")
- if (numbers) {passsword += numeric}
- console.log (password, "password")
- if (symbols) (password += specialSymbols);
- console.log (password, "password")
-
- if (keylength < 8 || keylength > 128) {
-  alert("Password must contain at least 8 characters");
-  var keylength = prompt ("Password must be between 8 and 128 characters! Click OK to continue");
- };
-
- if (uppercaseABC === false && lowercaseABC === false && specialSymbols === false && numeric === false) {
-  return "Your passsword does not meet the password criteria"
-  
- };
-
-  for (let i = 0; i < password; index++) {
-    let rng = [Math.floor(Math.random() * password.length )]
-    
+  if(Number.isNaN(length)) {
+    alert("Password length must be a number");
+    return null;
   }
 
-  
+  if (length < 8) {
+    alert("Password must be at least 8 characters");
+    return null;
 
-  return password; // return generated password
+  }
+  if (length > 128) {
+    alert("Password must be less than 128 characters")
+    return null;
+  }
+  
+  
+  var hasUpperCase = confirm ("Do you want to include Uppercase letters?");
+  var hasLowerCase = confirm ("Do you want to include Lowercase letters?");
+  var hasSymbols = confirm ("Do you want to include symbols and/or special characters?");
+  var hasNumbers = confirm ("Do you want to include numbers?");
+
+  if (
+    hasUpperCase === false &&
+    hasLowerCase === false &&
+    hasSymbols === false &&
+    hasNumbers === false 
+  ) {
+    alert("Must select at least one");
+    return null;
+
+  }
+
+  var passwordCriteria = {
+    length:length,
+   hasUpperCase: hasUpperCase,
+   hasLowerCase: hasLowerCase,
+   hasSymbols: hasSymbols,
+   hasNumbers: hasNumbers,
+  };
+
+  return passwordCriteria;
 }
 
+
+
+function generatePassword() {
+  var options = getPassswordOptions();
+  var result = [];
+  var possibleCharacters = [];
+  var correctCharacters = []; 
+
+  if (!options) return null;
+
+  if (options.hasSymbols) {
+    possibleCharacters = possibleCharacters.concat(specialSymbols);
+    correctCharacters.push(getRandom(specialSymbols));
+  }
+
+  if (options.hasLowerCase) {
+    possibleCharacters = possibleCharacters.concat(lowerCaseABC);
+    correctCharacters.push(getRandom(lowerCaseABC));
+  }
+   
+  if (options.hasUpperCase) {
+    possibleCharacters = possibleCharacters.concat(upperCaseABC);
+    correctCharacters.push(getRandom(upperCaseABC));
+  
+  }
+  if (options.hasNumbers) {
+    possibleCharacters = possibleCharacters.concat(numeric);
+    correctCharacters.push(getRandom)((numeric));
+  }
+  
+  for (var i = 0; i < options.length; i++) {
+    result[i] = possibleCharacters = getRandom(possibleCharacters);
+    result.push(possibleCharacters);
+  }
+
+  for (var i = 0; i < correctCharacters.length; i++) {
+    result[i]= correctCharacters[i];
+  }
+
+  return result.join("");
+ 
+}
+  
+   
+
+
+var generateBtn = document.querySelector("#generate");
 // Write password to the #password input
 function writePassword() {
   var password = generatePassword();
