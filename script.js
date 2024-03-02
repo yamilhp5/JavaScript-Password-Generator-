@@ -2,7 +2,7 @@
   var upperCaseABC = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
   var lowerCaseABC = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
   var specialSymbols = ['~', '!','@','#', '$', '%','^','&','*','(',')','_','+'];
-  var numericCharacters = ['0', '1', '2', '3', '4', '5', '6', '7','8','9','10'];
+  var numericCharacters = ['0', '1', '2', '3', '4', '5', '6', '7','8','9',];
  
 
 function getPassswordOptions () {
@@ -43,7 +43,7 @@ function getPassswordOptions () {
   }
 
   var passwordCriteria = {
-    length:length,
+   length:length,
    hasUpperCase: hasUpperCase,
    hasLowerCase: hasLowerCase,
    hasSymbols: hasSymbols,
@@ -53,10 +53,12 @@ function getPassswordOptions () {
   return passwordCriteria;
 }
 
-
+function getRandom(array) {
+  return array [Math.floor(Math.random()* array.length)];
+}
 
 function generatePassword() {
-  var options = getPassswordOptions();
+  var options = getPasswordOptions();
   var result = [];
   var possibleCharacters = [];
   var correctCharacters = []; 
@@ -79,34 +81,30 @@ function generatePassword() {
   
   }
   if (options.hasNumbers) {
-    possibleCharacters = possibleCharacters.concat(numeric);
-    correctCharacters.push(getRandom)((numeric));
+    possibleCharacters = possibleCharacters.concat(numericCharacters);
+    correctCharacters.push(getRandom)((numericCharacters));
   }
   
   for (var i = 0; i < options.length; i++) {
-    result[i] = possibleCharacters = getRandom(possibleCharacters);
-    result.push(possibleCharacters);
+    result[i] = getRandom(possibleCharacters);
   }
 
-  for (var i = 0; i < correctCharacters.length; i++) {
-    result[i]= correctCharacters[i];
-  }
 
   return result.join("");
  
 }
-  
-   
 
+// Get references to the #generate element
+var generateBtn = document.querySelector('#generate');
 
-var generateBtn = document.querySelector("#generate");
 // Write password to the #password input
 function writePassword() {
   var password = generatePassword();
-  var passwordText = document.querySelector("#password");
+  var passwordText = document.querySelector('#password');
 
   passwordText.value = password;
 }
 
 // Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
+generateBtn.addEventListener('click', writePassword);
+
